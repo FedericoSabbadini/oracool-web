@@ -1,0 +1,114 @@
+---------------------------Installazione da Terminale---------------------------
+Composer & laravel:
+php -v
+composer -v
+cd C:\Users\Federico\xampp\htdocs
+composer create-project --prefer-dist laravel/laravel NOMEPROGETTO
+cd NOMEPROGETTO
+
+Configura il file .env per la connessione al database:
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=NOMEDB
+DB_USERNAME=NOMEUTENTE
+DB_PASSWORD=PASSWORDUTENTE
+
+Gestioni utenti e sessioni:
+composer require laravel/breeze --dev
+php artisan breeze:install
+❯ blade
+❯ y (dark mode support)
+❯ Pest
+
+Gestione date e orari:
+composer require nesbot/carbon
+
+Gestione multilingua:
+composer require laravel-lang/lang --dev
+php artisan lang:add it en fr de
+
+-----------------------------Installazione Manuale-----------------------------
+app->Http:
++ Middleware
+
+app:
++ Services
+
+public:
++ img
++ js
++ css
+
+resources:
++ data
+
+storage->logs:
++ laravel.log
+
+----------------------------Scrittura di Classi Base----------------------------
+config->app.php:
+'timezone' => 'Europe/Rome',
+
+public->css:
++ style.css
++ dataTables.css
+
+app->Http->Controllers:
++ langController.php
+
+app->Http->Middleware:
++ langStatus.php
+
+public->js:
+timezone.js
+
+routes->web.php:
+Route::post('/set-timezone', [LangController::class, 'setTimezone'])->name('set.timezone');
+Route::resource('/lang', LangController::class)
+->only(['edit']);    
+    // EDIT   /lang/{lang}/edit       -> edit    (lang.edit)   // Edit language
+
+.env:
+APP_TIMEZONE=Europe/Rome
+APP_MAINTENANCE_STORE=database
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=OracoolDB   ******vedi tu
+DB_USERNAME=federico   ******vedi tu
+DB_PASSWORD=mfQ9Amk6U8o)UY!L ******vedi tu
+SESSION_DOMAIN=localhost
+SESSION_COOKIE=oracool_session
+
+resources->views->layouts:
++ master.blade.php
+
+-----------------------------Creazione di Componenti-----------------------------
+php artisan make:controller NomeController
+
+php artisan make:model NomeModel
+
+php artisan make:migration NomeMigration_table
+php artisan migrate
+php artisan migrate:rollback
+
+php artisan make:seeder NomeSeeder
+php artisan db:seed --class=NomeSeeder
+
+php artisan make:factory NomeFactory
+
+php artisan make:middleware NomeMiddleware
+
+php artisan serve
+	(oppure, se non va
+php -S localhost:8000 -t public
+	)
+--------------------------------Comandi di Pulizia--------------------------------
+php artisan cache:clear
+php artisan config:clear
+php artisan view:clear
+php artisan route:clear
+php artisan session:clear
+php artisan clear-compiled
+php artisan optimize
